@@ -1,8 +1,6 @@
 @import "tailwindcss";
 
-/* Please note this document will be updated as time goes by. Thank you */
-
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -20,14 +18,15 @@
     input[type="password"],
     input[type="search"],
     input[type="tel"],
-    input[type="url"], textarea {
+    input[type="url"],
+    textarea {
         @apply block w-full rounded-md border-0 p-2 text-slate-900 shadow-sm ring-1 ring-inset ring-slate-300 placeholder:text-slate-500 focus:ring-2 focus:ring-inset focus:ring-blue-500 sm:text-sm bg-white;
     }
     label {
-        @apply block text-sm font-medium leading-6 text-slate-900 first-letter:capitalize;
+        @apply block text-lg font-medium leading-6 text-slate-900 first-letter:capitalize;
     }
     header {
-        @apply bg-lime-600 shadow-md;
+        @apply bg-gradient-to-r from-purple-500 to-orange-500 shadow-md;
     }
     nav {
         @apply p-5 max-w-screen-lg mx-auto flex items-center justify-between;
@@ -36,16 +35,18 @@
         @apply max-w-screen-lg mx-auto;
     }
     .primary-btn {
-        @apply flex w-full justify-center rounded-md bg-lime-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-lime-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:bg-slate-400 disabled:cursor-wait;
+        @apply flex w-full justify-center rounded-md bg-gradient-to-r from-purple-500 to-orange-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:from-purple-700 hover:to-orange-600 
+    focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 
+    disabled:bg-slate-400 disabled:cursor-wait cursor-pointer;
     }
     .text-link {
         @apply font-semibold text-blue-500 hover:text-blue-600;
     }
     .nav-link {
-        @apply text-slate-100 hover:bg-lime-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium;
+        @apply text-slate-100 hover:bg-purple-700 hover:text-white rounded-md px-3 py-2 text-lg font-medium cursor-pointer;
     }
     .title {
-        @apply my-6 text-center text-3xl font-bold leading-9 text-slate-900;
+        @apply my-6 text-center text-5xl font-bold leading-9 text-slate-900;
     }
     .error {
         @apply text-xs text-red-500 mt-1;
@@ -70,5 +71,8 @@
     }
     .round-btn {
         @apply w-8 h-8 overflow-auto rounded-full bg-slate-100 focus:outline-none focus:ring-1 focus:ring-slate-100 focus:ring-offset-2 focus:ring-offset-slate-800;
+    }
+    .card {
+        @apply mt-6 w-fit max-w-md bg-white p-8 rounded-lg shadow-lg mx-auto;
     }
 }
