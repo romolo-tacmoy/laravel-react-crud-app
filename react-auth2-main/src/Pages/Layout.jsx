@@ -1,27 +1,39 @@
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import { AppContext } from "../Context/AppContext";
 import { useContext } from "react";
+import Logo from '../assets/logo.png';
 
 export default function Layout() {
-    const { user, token, setUser, setToken } = useContext(AppContext);
+    const { user, setUser } = useContext(AppContext);
     const navigate = useNavigate();
 
     async function handleLogout(e) {
         e.preventDefault();
 
-        const res = await fetch("http://127.0.0.1:8000/logout", {
-            method: "POST",
+        await fetch('http://localhost:8000/sanctum/csrf-cookie', {
+            method: "GET",
             headers: {
-                "Authorization": `Bearer ${token}`
-            }
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+            },
+            credentials: "include"
         });
 
-        const data = await res.json();
+        const csrfToken = decodeURIComponent(
+            document.cookie.split('; ').find(row => row.startsWith('XSRF-TOKEN='))?.split('XSRF-TOKEN=')[1] || ''
+          );
+        console.log(csrfToken);
+
+        const res = await fetch("http://localhost:8000/logout", {
+            method: "POST",
+            headers: {
+                "X-XSRF-TOKEN": csrfToken
+            },
+            credentials: "include"
+        });
 
         if(res.ok) {
             setUser(null);
-            setToken(null);
-            localStorage.removeItem('token');
             navigate('/');
         }
     }
@@ -30,13 +42,13 @@ export default function Layout() {
         <>
             <header>
                 <nav>
-                    <Link to="/" className="nav-link">
-                        Brand Logo
+                    <Link to="/" className="flex items-center text-slate-100 space-x-2 text-3xl">
+                        <img src={Logo}/>
                     </Link>
                     {user ? (
                         <div className="flex items-center space-x-4 ml-auto">
-                            <p className="text-slate-100 text-sm font-medium">
-                                Welcome {user.name}
+                            <p className="text-slate-100 text-lg font-medium">
+                                Hi, {user.name}!
                             </p>
                             <form onSubmit={handleLogout}>
                                 <button className="nav-link">Logout</button>
